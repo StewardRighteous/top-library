@@ -60,8 +60,3 @@ function createCard(book){
     librarySection.append(bookCard);
 }
 
-addToLibrary("Sample Title", "Sample authors", 295, false);
-addToLibrary("Sample Title 2", "Sample authors", 295, false);
-addToLibrary("Sample Title 3", "Sample authors", 295, false);
-addToLibrary("Sample Title 3", "Sample authors", 295, false);
-showAllBooks();
