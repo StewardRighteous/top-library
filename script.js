@@ -19,3 +19,7 @@ function addToLibrary(name, author, pages, readingStatus){
     let book = new Book(name, author, pages, readingStatus);
     myLibrary.push(book);
 }
+
+function removeFromLibrary(indexValue){
+ myLibrary.splice(indexValue); 
+}
