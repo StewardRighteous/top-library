@@ -1,6 +1,8 @@
 const myLibrary = [];
 
 const librarySection = document.querySelector(".library");
+const newBookButton = document.querySelector(".add-new-book button");
+const newBookDialogBox = document.querySelector("dialog");
 
 function Book(name, author, pages, readingStatus){
     this.name = name;
@@ -60,3 +62,6 @@ function createCard(book){
     librarySection.append(bookCard);
 }
 
+newBookButton.addEventListener("click", (e)=>{
+    newBookDialogBox.showModal();
+});
