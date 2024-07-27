@@ -1,5 +1,7 @@
 const myLibrary = [];
 
+const librarySection = document.querySelector(".library");
+
 function Book(name, author, pages, readingStatus){
     this.name = name;
     this.author = author;
@@ -23,3 +25,43 @@ function addToLibrary(name, author, pages, readingStatus){
 function removeFromLibrary(indexValue){
  myLibrary.splice(indexValue); 
 }
+
+function showAllBooks(){
+    myLibrary.forEach(createCard);
+}
+
+function createCard(book){
+    const bookTitle = document.createElement("h1");
+    const authorName = document.createElement("h2");
+    const noOfPages = document.createElement("p");
+    const readButton = document.createElement("button");
+    const deleteButton = document.createElement("button");
+    const allButtons = document.createElement("div");
+    const bookCard = document.createElement("div");
+
+    readButton.className = "read-status";
+    readButton.textContent = "read";
+    deleteButton.className = "delete";
+    deleteButton.textContent = "delete";
+
+    allButtons.className = "buttons";
+    allButtons.append(readButton, deleteButton);
+
+    bookTitle.textContent = book.name;
+    authorName.textContent = book.author;
+    noOfPages.textContent = book.pages;
+
+    if(book.readingStatus == true){
+        readButton.disabled = true;
+    }
+
+    bookCard.className = "book"
+    bookCard.append(bookTitle, authorName, noOfPages, allButtons)
+    librarySection.append(bookCard);
+}
+
+addToLibrary("Sample Title", "Sample authors", 295, false);
+addToLibrary("Sample Title 2", "Sample authors", 295, false);
+addToLibrary("Sample Title 3", "Sample authors", 295, false);
+addToLibrary("Sample Title 3", "Sample authors", 295, false);
+showAllBooks();
