@@ -12,11 +12,12 @@ const newBookAuthor = document.querySelector("#author")
 const newBookPages = document.querySelector("#pages");
 const newBookReadingStatus = document.querySelector("#read");
 
-function Book(name, author, pages, readingStatus){
+function Book(name, author, pages, readingStatus, indexValue){
     this.name = name;
     this.author = author;
     this.pages = pages;
     this.readingStatus = readingStatus;
+    this.indexValue = indexValue
 }
 
 Book.prototype.changeReadingStatus= function(){
@@ -27,18 +28,16 @@ Book.prototype.changeReadingStatus= function(){
     }
 }
 
-function addToLibrary(name, author, pages, readingStatus){
-    let book = new Book(name, author, pages, readingStatus);
+function addToLibrary(name, author, pages, readingStatus, indexValue){
+    let book = new Book(name, author, pages, readingStatus , indexValue);
     myLibrary.push(book);
+    createCard(book);
 }
 
 function removeFromLibrary(indexValue){
  myLibrary.splice(indexValue); 
 }
 
-function showAllBooks(){
-    myLibrary.forEach(createCard);
-}
 
 function createCard(book){
     const bookTitle = document.createElement("h1");
@@ -66,9 +65,11 @@ function createCard(book){
     }
 
     bookCard.className = "book"
-    bookCard.append(bookTitle, authorName, noOfPages, allButtons)
+    bookCard.append(bookTitle, authorName, noOfPages, allButtons);
+    bookCard.setAttribute("data-index", book.indexValue);
     librarySection.append(bookCard);
 }
+
 
 newBookButton.addEventListener("click", ()=>{
     newBookDialogBox.showModal();
@@ -89,11 +90,11 @@ addNewBookButton.addEventListener("click", (e)=>{
     if(allElementsFilled){
         let readingStatus;
         readingStatus = (newBookReadingStatus.checked) ? true : false;
-        addToLibrary(newBookTitle.value, newBookAuthor.value, newBookPages.value, readingStatus);
+        addToLibrary(newBookTitle.value, newBookAuthor.value, newBookPages.value, readingStatus, myLibrary.length);
         newBookDialogBox.close();
-        showAllBooks();
         newBookTitle.value = newBookAuthor.value = newBookPages.value = readingStatus = "";
     }else{
         alert("Please Fill all the Fields");
     }
 });
+
