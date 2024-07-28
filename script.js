@@ -2,6 +2,7 @@ const myLibrary = [];
 
 const librarySection = document.querySelector(".library");
 
+const newBookForm = document.querySelector("form");
 const newBookButton = document.querySelector(".add-new-book button");
 const newBookDialogBox = document.querySelector("dialog");
 const cancelNewBookButton = document.querySelector("form .cancel");
@@ -79,10 +80,20 @@ cancelNewBookButton.addEventListener("click",()=> {
 
 addNewBookButton.addEventListener("click", (e)=>{
     e.preventDefault();
-    let readingStatus;
-    readingStatus = (newBookReadingStatus.checked) ? true : false;
-    addToLibrary(newBookTitle.value, newBookAuthor.value, newBookPages.value, readingStatus);
-    newBookDialogBox.close();
-    showAllBooks();
-    newBookTitle.value = newBookAuthor.value = newBookPages.value = readingStatus = "";
+    let allElementsFilled = true;
+    for(const element of newBookForm){
+        if(!element.reportValidity()){
+            allElementsFilled = false;
+        }
+    }
+    if(allElementsFilled){
+        let readingStatus;
+        readingStatus = (newBookReadingStatus.checked) ? true : false;
+        addToLibrary(newBookTitle.value, newBookAuthor.value, newBookPages.value, readingStatus);
+        newBookDialogBox.close();
+        showAllBooks();
+        newBookTitle.value = newBookAuthor.value = newBookPages.value = readingStatus = "";
+    }else{
+        alert("Please Fill all the Fields");
+    }
 });

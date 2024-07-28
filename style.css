@@ -218,8 +218,6 @@ form .form-element .add-book:disabled{
     background-color: gray;
 }
 
-
-
 form .form-element .cancel:hover{
     background-color: rgb(187, 32, 32);
 }
