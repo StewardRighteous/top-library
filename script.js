@@ -1,8 +1,15 @@
 const myLibrary = [];
 
 const librarySection = document.querySelector(".library");
+
 const newBookButton = document.querySelector(".add-new-book button");
 const newBookDialogBox = document.querySelector("dialog");
+const cancelNewBookButton = document.querySelector("form .cancel");
+const addNewBookButton = document.querySelector("form .add-book");
+const newBookTitle = document.querySelector("#title");
+const newBookAuthor = document.querySelector("#author")
+const newBookPages = document.querySelector("#pages");
+const newBookReadingStatus = document.querySelector("#read");
 
 function Book(name, author, pages, readingStatus){
     this.name = name;
@@ -62,6 +69,20 @@ function createCard(book){
     librarySection.append(bookCard);
 }
 
-newBookButton.addEventListener("click", (e)=>{
+newBookButton.addEventListener("click", ()=>{
     newBookDialogBox.showModal();
+});
+
+cancelNewBookButton.addEventListener("click",()=> {
+    newBookDialogBox.close();
+});
+
+addNewBookButton.addEventListener("click", (e)=>{
+    e.preventDefault();
+    let readingStatus;
+    readingStatus = (newBookReadingStatus.checked) ? true : false;
+    addToLibrary(newBookTitle.value, newBookAuthor.value, newBookPages.value, readingStatus);
+    newBookDialogBox.close();
+    showAllBooks();
+    newBookTitle.value = newBookAuthor.value = newBookPages.value = readingStatus = "";
 });
