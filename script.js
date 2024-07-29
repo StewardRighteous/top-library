@@ -12,7 +12,7 @@ const newBookAuthor = document.querySelector("#author")
 const newBookPages = document.querySelector("#pages");
 const newBookReadingStatus = document.querySelector("#read");
 
-function Book(name, author, pages, readingStatus, indexValue){
+function Book(name, author, pages, readingStatus, indexValue) {
     this.name = name;
     this.author = author;
     this.pages = pages;
@@ -20,26 +20,26 @@ function Book(name, author, pages, readingStatus, indexValue){
     this.indexValue = indexValue;
 }
 
-Book.prototype.changeReadingStatus= function(){
-    if(this.readingStatus == false){
+Book.prototype.changeReadingStatus = function () {
+    if (this.readingStatus == false) {
         this.readingStatus = true;
-    }else{
+    } else {
         this.readingStatus = false;
     }
 }
 
-function addToLibrary(name, author, pages, readingStatus, indexValue){
-    let book = new Book(name, author, pages, readingStatus , indexValue);
+function addToLibrary(name, author, pages, readingStatus, indexValue) {
+    let book = new Book(name, author, pages, readingStatus, indexValue);
     myLibrary.push(book);
     createCard(book);
 }
 
-function removeFromLibrary(indexValue){
-    myLibrary.splice(indexValue); 
+function removeFromLibrary(indexValue) {
+    myLibrary.splice(indexValue);
 }
 
 
-function createCard(book){
+function createCard(book) {
     const bookTitle = document.createElement("h1");
     const authorName = document.createElement("h2");
     const noOfPages = document.createElement("p");
@@ -60,7 +60,7 @@ function createCard(book){
     authorName.textContent = book.author;
     noOfPages.textContent = book.pages;
 
-    if(book.readingStatus == true){
+    if (book.readingStatus == true) {
         readButton.disabled = true;
     }
 
@@ -68,22 +68,22 @@ function createCard(book){
     bookCard.append(bookTitle, authorName, noOfPages, allButtons);
     bookCard.setAttribute("data-index", book.indexValue);
 
-    
-    bookCard.addEventListener("click", (e)=>{
+
+    bookCard.addEventListener("click", (e) => {
         let indexValue = bookCard.getAttribute("data-index");
         // Delete book 
-        if(e.target.matches("button.delete")){
+        if (e.target.matches("button.delete")) {
             removeFromLibrary(indexValue);
             librarySection.removeChild(bookCard);
         }
         // change reading status
-        if(e.target.matches("button.read-status")){
+        if (e.target.matches("button.read-status")) {
             myLibrary.at(indexValue).changeReadingStatus();
             console.log(myLibrary);
-            if(myLibrary.at(indexValue).readingStatus == true){
+            if (myLibrary.at(indexValue).readingStatus == true) {
                 e.target.style.backgroundColor = "gray";
                 e.target.textContent = "Done"
-            }else{
+            } else {
                 e.target.style.backgroundColor = "rgb(80, 180, 152)";
                 e.target.textContent = "Read"
             }
@@ -94,29 +94,29 @@ function createCard(book){
 }
 
 
-newBookButton.addEventListener("click", ()=>{
+newBookButton.addEventListener("click", () => {
     newBookDialogBox.showModal();
 });
 
-cancelNewBookButton.addEventListener("click",()=> {
+cancelNewBookButton.addEventListener("click", () => {
     newBookDialogBox.close();
 });
 
-addNewBookButton.addEventListener("click", (e)=>{
+addNewBookButton.addEventListener("click", (e) => {
     e.preventDefault();
     let allElementsFilled = true;
-    for(const element of newBookForm){
-        if(!element.reportValidity()){
+    for (const element of newBookForm) {
+        if (!element.reportValidity()) {
             allElementsFilled = false;
         }
     }
-    if(allElementsFilled){
+    if (allElementsFilled) {
         let readingStatus;
         readingStatus = (newBookReadingStatus.checked) ? true : false;
         addToLibrary(newBookTitle.value, newBookAuthor.value, newBookPages.value, readingStatus, myLibrary.length);
         newBookDialogBox.close();
         newBookTitle.value = newBookAuthor.value = newBookPages.value = readingStatus = "";
-    }else{
+    } else {
         alert("Please Fill all the Fields");
     }
 });
