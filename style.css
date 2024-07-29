@@ -84,10 +84,6 @@ body{
     background-color: rgb(46, 119, 46);
 }
 
-.book .buttons .read-status:disabled{
-    background-color: gray;
-}
-
 .book .buttons .delete{
     background-color: rgb(182, 63, 63);
 }

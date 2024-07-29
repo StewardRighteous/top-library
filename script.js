@@ -68,12 +68,25 @@ function createCard(book){
     bookCard.append(bookTitle, authorName, noOfPages, allButtons);
     bookCard.setAttribute("data-index", book.indexValue);
 
-    // Delete book 
+    
     bookCard.addEventListener("click", (e)=>{
+        let indexValue = bookCard.getAttribute("data-index");
+        // Delete book 
         if(e.target.matches("button.delete")){
-            let indexValue = bookCard.getAttribute("data-index");
             removeFromLibrary(indexValue);
             librarySection.removeChild(bookCard);
+        }
+        // change reading status
+        if(e.target.matches("button.read-status")){
+            myLibrary.at(indexValue).changeReadingStatus();
+            console.log(myLibrary);
+            if(myLibrary.at(indexValue).readingStatus == true){
+                e.target.style.backgroundColor = "gray";
+                e.target.textContent = "Done"
+            }else{
+                e.target.style.backgroundColor = "rgb(80, 180, 152)";
+                e.target.textContent = "Read"
+            }
         }
     });
 
