@@ -17,7 +17,7 @@ function Book(name, author, pages, readingStatus, indexValue){
     this.author = author;
     this.pages = pages;
     this.readingStatus = readingStatus;
-    this.indexValue = indexValue
+    this.indexValue = indexValue;
 }
 
 Book.prototype.changeReadingStatus= function(){
@@ -35,7 +35,7 @@ function addToLibrary(name, author, pages, readingStatus, indexValue){
 }
 
 function removeFromLibrary(indexValue){
- myLibrary.splice(indexValue); 
+    myLibrary.splice(indexValue); 
 }
 
 
@@ -67,6 +67,16 @@ function createCard(book){
     bookCard.className = "book"
     bookCard.append(bookTitle, authorName, noOfPages, allButtons);
     bookCard.setAttribute("data-index", book.indexValue);
+
+    // Delete book 
+    bookCard.addEventListener("click", (e)=>{
+        if(e.target.matches("button.delete")){
+            let indexValue = bookCard.getAttribute("data-index");
+            removeFromLibrary(indexValue);
+            librarySection.removeChild(bookCard);
+        }
+    });
+
     librarySection.append(bookCard);
 }
 
