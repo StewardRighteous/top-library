@@ -12,21 +12,23 @@ const newBookAuthor = document.querySelector("#author")
 const newBookPages = document.querySelector("#pages");
 const newBookReadingStatus = document.querySelector("#read");
 
-function Book(name, author, pages, readingStatus, indexValue) {
-    this.name = name;
-    this.author = author;
-    this.pages = pages;
-    this.readingStatus = readingStatus;
-    this.indexValue = indexValue;
-}
-
-Book.prototype.changeReadingStatus = function () {
-    if (this.readingStatus == false) {
-        this.readingStatus = true;
-    } else {
-        this.readingStatus = false;
+class Book {
+    constructor(name, author, pages, readingStatus, indexValue) {
+        this.name = name;
+        this.author = author;
+        this.pages = pages;
+        this.readingStatus = readingStatus;
+        this.indexValue = indexValue;
+    }
+    changeReadingStatus() {
+        if (this.readingStatus == false) {
+            this.readingStatus = true;
+        } else {
+            this.readingStatus = false;
+        }
     }
 }
+
 
 function addToLibrary(name, author, pages, readingStatus, indexValue) {
     let book = new Book(name, author, pages, readingStatus, indexValue);
